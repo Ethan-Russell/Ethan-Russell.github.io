@@ -2,13 +2,13 @@
 {
 	background-image: url("./images/lemonpattern.jpg");
 	background-size: 400px;
-	height: 60vh;
+	height: calc(100px + 10vh);
 }
 .lemon-text{
 	text-align: center;
 	margin: auto;
-	line-height:60vh;
+	line-height:calc(150px + 5vh);
 	font-family: 'Kalam', cursive;
-	font-size:72px;
+	font-size: calc(36px + 6vw);
 	color: #3c3c22;
 }

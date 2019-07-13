@@ -1,0 +1,77 @@
+<html>
+	<head>
+		<title>DBT Text Sample</title>
+		<!-- These next two lines are required to allow the browser to properly display non-Latin language names -->
+		<meta charset="utf-8">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<script type="text/javascript">
+            import { saveAs } from 'file-saver';
+            function loadJSON() {
+                //<![CDATA[
+                var dbtKey = "8dea39f68fde0c2f563192c118f3dcc9";
+                /* Normally, you would want to hide the key within an API proxy file. It is shown here for simplicity. */
+                // Get the Bible location.
+                var damId = 'ENGESVN2ET';
+                var bookId = 'Matt';
+                var chapterID = '3'
+                var data_file = "http://dbt.io/text/verse?key=8dea39f68fde0c2f563192c118f3dcc9&dam_id=ENGESVN2ET&book_id=Matt&chapter_id=3&v=5";
+                var http_request = new XMLHttpRequest();
+                try{
+                    http_request = new XMLHttpRequest();
+                }catch (e) {
+                    // Internet Explorer Browsers
+                    try{
+                        http_request = new ActiveXObject("Msxml2.XMLHTTP");
+                        
+                    }catch (e) {
+                    
+                        try{
+                            http_request = new ActiveXObject("Microsoft.XMLHTTP");
+                        }catch (e) {
+                            // Something went wrong
+                            alert("Your browser broke!");
+                            return false;
+                        }
+                        
+                    }
+                }
+                
+                http_request.onreadystatechange = function() {
+                    if (http_request.readyState == 4  ) {
+                        // Javascript function JSON.parse to parse JSON data
+                        var jsonObj = JSON.parse(http_request.responseText);
+                        var blob = new Blob([jsonObj[16].verse_text], {type: "text/plain;charset=utf-8"});
+                        saveAs(blob, "testfile1.txt");                        
+                    }
+                }
+                http_request.open("GET", data_file, true);
+                http_request.send();
+            }
+//             ajax({
+//                     async: true,
+//                     url: 'http://dbt.io/text/verse',
+//                     type:'GET',
+//                     data:'v=2&key=' + dbtKey + '&dam_id=' + escape(damId) + '&book_id=' + escape(bookId) + 
+//                         '&chapter_id=' + chapterId,
+//                     success:function(data){
+//                         if (data) {
+//                             for (var i = 0 ; i < data.length ; ++i) {
+//                                 var verse = data[i];
+//                                 alert("hello");
+//     //                             alert("<span class='verse'><span class='verse-number'>" + 
+//     //                                 verse.verse_id + "</span>" + verse.verse_text.trim() + "</span>");
+//                             }
+//                         }
+//                     }
+//                 });
+		</script>
+
+	</head>
+	<body>
+		<h1>Text Sample</h1>		
+		<div class = "central">
+        <button type = "button" onclick = "loadJSON()">Update Details </button>
+      </div>
+
+	</body>
+</html>
